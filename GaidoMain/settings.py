@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
-# Change the path file in production to where the SECRET_KEY is located
-with open('')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+# Uncomment this for the production model.
+# Also change the path of the file opened, the SECRET_KEY is stored there on the main dev environment
+# with open('../../secret_key.txt') as f:
+#   SECRET_KEY = f.read().strip()
+
 SECRET_KEY = 'i*e3dw2tefl)-)^+dqah)(^6nwii!tm3aj3jaa5bcx4hrtm=u%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
