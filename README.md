@@ -18,6 +18,7 @@ The website runs on a local server in the port ``http://127.0.0.1:8000`` on your
 
 ## Migration when Testing
 When you are testing out features or modifying the code, you may want to make changes to the model. When this occurs, *migrations* within *Django* have to be made to the database.
+
     python manage.oy makemigrations <app>
     > files are added to the migration, you can specify the main app 'Gaido' when doing migrations, or leave it blank
     python manage.py migrate
