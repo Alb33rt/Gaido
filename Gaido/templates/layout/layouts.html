@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+<title>{% block title %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Gaido- A Japanese Tourism Guide">
+<meta name="author" content="Albert Wang">
+<meta name="description" content="Open Source Japanese Tourism Application that people can share thoughts on.">
+
+
+<!-- Fontawesome -->
+<link type="text/css" href="{% static 'dist/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+<!-- Pixel CSS -->
+<link type="text/css" href="{% static 'dist/css/pixel.css' %}" rel="stylesheet">
+
+<!-- Optional CSS-->
+{% block css %}
+{% endblock %}
+</head>
+
+<body>
+<!-- Navigation bar-->
+<header>
+<nav class="navbar navbar-transparent navbar-dark navbar-expand-lg navbar-theme-primary bg-dark .headroom">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'index' %}">Gaido</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-collapse-header">
+            <div class="row">
+                <div class="col-6 collapse-brand">
+                <h1 class="mr-3">Gaido</h1>
+                </div>
+                <div class="col-6 collapse-close">
+                    <i class="fas fa-times" data-bs-toggle="collapse" role="button"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"></i>
+                </div>
+            </div>
+        </div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blogs' %}">Blog</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle Categories View">
+            Categories
+            <i class="fas fa-angle-down nav-link-arrow ml-2"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-megamenu-md p-0" aria-labelledby="navbarDropdown">
+            <div class="row g-0">
+                <div class="col-lg-6 bg-dark d-none d-lg-block pr-0 mr-3">
+                    <div class="px-3 py-3 text-center">
+                        <img src="{% static 'dist\assets\img\japan\japanmapicon.png.png' %}" alt="Map of Japan">
+                    </div>
+                </div>
+                <div class="col-2 px-1">
+                    <span class="text px-3 py-2">Regions</span>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Hokkaido</a></li>
+                    <li><a class="dropdown-item" href="#">Kanto</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Nagoya</a></li>
+                    <li><a class="dropdown-item" href="#">Kansai</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Shikouku</a></li>
+                    <li><a class="dropdown-item" href="#">Kyushyu</a></li>
+                </div>
+                <div class="col-2">
+                    <span class="text px-3 py-2">Activities</span>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Anime</a></li>
+                    <li><a class="dropdown-item" href="#">Food</a></li>
+                    <li><a class="dropdown-item" href="#">Entertainment</a></li>
+                    <li><a class="dropdown-item" href="#">Sports</a></li>
+                    <li><a class="dropdown-item" href="#">History</a></li>
+                    <li><a class="dropdown-item" href="#">Business</a></li>
+                </div>
+            </div>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1">Support</a>
+        </li>
+      </ul>
+      <ul class="flex-row list-style-none px-3 d-none d-lg-flex">
+        <li class="px-1">
+            <a href="https://www.facebook.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Like us on Facebook">
+            <i class="fab fa-facebook text-white"></i>
+            </a>
+        </li>
+        <li class="px-1">
+            <a href="https://twitter.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on Twitter">
+            <i class="fab fa-twitter text-white"></i>
+            </a>
+        </li>
+        <li class="px-1">
+            <a href="https://github.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Star us on Github">
+            <i class="fab fa-github text-white"></i>
+            </a>
+        </li>
+    </ul>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    </div>
+  </div>
+</nav>
+</header>
+
+{% block body %}
+{% endblock %}
+
+    <!-- Core -->
+<script src="{% static 'dist/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'dist/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dist/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+
+<!-- Vendor JS -->
+<script src="{% static 'dist/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+<script src="{% static 'dist/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+<script src="{% static 'dist/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+<script src="{% static 'dist/vendor/vivus/dist/vivus.min.js' %}"></script>
+<script src="{% static 'dist/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+
+<!-- Pixel JS -->
+<script src="{% static 'dist/assets/js/pixel.js' %}"></script>
+
+</body>
+
+</html>

@@ -40,6 +40,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user_auth',
     'Gaido',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,6 +91,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'user_auth.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -129,8 +131,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIR = (
-    os.path.join(BASE_DIR, 'pixel-lite-ui')
-    )
-
-STATIC_ROOT = "../pixel-lite-ui"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
