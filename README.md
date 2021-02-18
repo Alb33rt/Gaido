@@ -26,3 +26,11 @@ When you are testing out features or modifying the code, you may want to make ch
     
     python manage.py runserver
     > boots server with changes
+    > 
+
+## Using the UI Kit (Pixel Lite)
+The project is built using the Pixel Lite Kit from Themesburg.
+The Front-End is built using Technologies such as *Gulp, Javascript, Bootstrap, and SASS"
+
+Run the following to initialize the ui kit by running `gulp` inside of `pixel-lite-ui`.
+
