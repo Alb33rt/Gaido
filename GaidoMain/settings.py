@@ -42,6 +42,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'user_auth',
     'Gaido',
+    'blog',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,7 +88,13 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'NAME': BASE_DIR / 'db_maindatabase',
+
+        'USER': 'db_admin',
+
+        'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
+
     }
 }
 

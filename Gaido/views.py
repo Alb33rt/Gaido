@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import blogpost
+from blog.models import Blogpost
 
 # Create your views here.
 def index(request):
