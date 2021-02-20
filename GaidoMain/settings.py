@@ -17,6 +17,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,7 +35,7 @@ SECRET_KEY = 'i*e3dw2tefl)-)^+dqah)(^6nwii!tm3aj3jaa5bcx4hrtm=u%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +68,7 @@ ROOT_URLCONF = 'GaidoMain.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +141,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# TINYMCE Editor 
+
+DJANGO_SETTINGS_MODULE='Gaido.settings'
+
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/uhs3dho7p9ru7rj1ppymb0duvyskebau3n1ox14nlhaayjw0/tinymce/5/tinymce.min.js'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': '''
+            advlist link image lists
+            ''',
+}

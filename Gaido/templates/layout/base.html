@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+<title>{% block title %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Gaido- A Japanese Tourism Guide">
+<meta name="author" content="Albert Wang">
+<meta name="description" content="Open Source Japanese Tourism Application that people can share thoughts on.">
+
+
+<!-- Fontawesome -->
+<link type="text/css" href="{% static 'dist/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+<!-- Pixel CSS -->
+<link type="text/css" href="{% static 'dist/css/pixel.css' %}" rel="stylesheet">
+
+<!-- Optional CSS-->
+<style>
+{% block css %}
+{% endblock %}
+</style>
+</head>
+
+<body>
+<!-- Navigation bar-->
+{% block navbar %}
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+    <!-- Core -->
+<script src="{% static 'dist/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'dist/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dist/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+
+<!-- Vendor JS -->
+<script src="{% static 'dist/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+<script src="{% static 'dist/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+<script src="{% static 'dist/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+<script src="{% static 'dist/vendor/vivus/dist/vivus.min.js' %}"></script>
+<script src="{% static 'dist/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
+
+<!-- Pixel JS -->
+<script src="{% static 'dist/assets/js/pixel.js' %}"></script>
+
+</body>
+
+</html>

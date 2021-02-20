@@ -1,16 +1,25 @@
-{% extends 'layout/layouts.html' %}
+{% extends 'layout/layout.html' %}
+{% load static %}
 
 {% block title %}
 Gaido- Blogs
 {% endblock %}
 
+{% block css %}
+{% endblock %}
+
 {% block body %}
 <main>
-<div class="container">
+<div class="container mt-6">
     <div class="row justify-content-center">
         <h1 class="text-center mt-6">Blogs</h1>
     </div>
-
+    {% if user.is_superuser %}
+        <div class="alert alert-primary mt-2" role="alert">
+            <span class="alert-inner--text">Welcome back. To create a post, <a href="{% url 'blog:create' %}" class="alert-link">go to the editor.</a></span>
+        </div>
+    {% endif %}
+    
 </div>
 
 </main>

@@ -23,4 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(("Gaido.urls", "main"), namespace='main')),
     path('blog/', include(("blog.urls", 'blog'), namespace='blog')),
+    path('user/', include(("user_auth.urls", 'user_auth'), namespace='user_auth')),
+    path('tinymce/', include('tinymce.urls')),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
+handler404 = 'Gaido.views.page_not_found'

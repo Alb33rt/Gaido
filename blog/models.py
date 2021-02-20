@@ -1,4 +1,7 @@
+import uuid
+
 from django.db import models
+from tinymce import models as tinymce_fields
 
 from user_auth.models import User
 
@@ -27,6 +30,11 @@ class Region(models.Model):
 
     region = models.CharField(max_length=2, choices=REGION_CHOICES, default=KANTO, primary_key=True)
 
+    def __str__(self):
+        for choice in self.REGION_CHOICES:
+            if choice[0] == self.region:
+                return choice[1]
+
 class Type(models.Model):
     GENERAL = "GEN"
     ENTERTAINMENT = "ENT"
@@ -47,14 +55,24 @@ class Type(models.Model):
 
     choice = models.CharField(max_length=3, choices=CHOICES, default=GENERAL, primary_key=True)
 
+    def __str__(self):
+        for choice in self.CHOICES:
+            if choice[0] == self.choice:
+                return choice[1]
+
+
 class Blogpost(models.Model):
-    uuid = models.UUIDField(primary_key=True, unique=True)
+    uuid = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blogposts")
     title = models.CharField(max_length=128)
-    Markdown = models.FileField(upload_to='blogposts')
-    related_posts = models.URLField(max_length=200)
+    content = tinymce_fields.HTMLField()
+    thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
+    
+    related_posts = models.URLField(max_length=200, null=True, blank=True)
 
     region = models.ForeignKey(Region, related_name="blogposts", on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Type, related_name="blogposts", on_delete=models.SET_NULL, null=True)
 
-    ups = models.IntegerField(verbose_name="claps")
+    ups = models.IntegerField(verbose_name="claps", default=0)
+
+    time_created = models.DateTimeField(auto_now_add=True)
