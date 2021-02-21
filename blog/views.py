@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 
 from user_auth.models import User
 
-from .forms import CreatePostForm
+from .forms import CreatePostForm, EditPostForm
 from .models import Blogpost
 # Create your views here.
 def index(request):
@@ -29,27 +29,29 @@ def index(request):
         'user': request.user,
     })
 
-def createPost(request):
-    if not request.user.has_perm('blog.add_blogpost'):
+def authorperm(user):
+    if not user.has_perm('blog:add_blogpost'):
         return HttpResponseRedirect(reverse('main:no_perm'))
+    else:
+        pass
+
+def createPost(request):
+    authorperm(request.user)
     if request.method == "POST":
-        form = CreatePostForm(request.POST)
-        content = form['content']
+        form = CreatePostForm(request.POST, request.FILES)
+        
         if form.is_valid():
+            # Context
             title = form.cleaned_data.get('title')
             briefing = form.cleaned_data.get('briefing')
-
-            thumbnail = form.cleaned_data.get('thumbnail')
-
-            category = form.cleaned_data.get('category')
-            region = form.cleaned_data.get('region')
-
+            content = form.cleaned_data['content']
+            thumbnail = form.cleaned_data['thumbnail']
+            category = form.cleaned_data['category']
+            region = form.cleaned_data['region']
             uuid = a.uuid4()
 
-            f = Blogpost(uuid=uuid, title=title, briefing=briefing, content=content, author=request.user, thumbnail=thumbnail)
+            f = Blogpost(uuid=uuid, title=title, briefing=briefing, content=content, author=request.user, thumbnail=thumbnail, category=category, region=region)
             f.save()
-
-            print(f)
 
             if f is None:
                 return HttpResponse('error')
@@ -69,4 +71,24 @@ def blogpost(request, uuid):
     post = Blogpost.objects.filter(uuid=uuid).get()
     return render(request, 'blog/blogpost.html', {
         'post': post,
+    })
+
+def editpost(request, uuid):
+    authorperm(request.user)
+
+    if request.method == "POST":
+        # code that updates the blogpost
+        pass
+
+    post = Blogpost.objects.filter(uuid=uuid).get()
+    form = EditPostForm(initial={
+        'title': post.title,
+        'content': post.content,
+        'briefing': post.briefing,
+        'category': post.category,
+        'region': post.region,
+    })
+
+    return render(request, 'blog/edit.html', {
+        'form': form,
     })

@@ -27,14 +27,27 @@
 </section>
 <section class="bg-white section text-dark align-items-center">
 <div class="container">
+    <div class="row">
     <div class="col-lg-8" width=100% id="thumbnail">
     <img src="{{ post.thumbnail.url }}">
     <p class="text mt-4">
     {{ post.content | safe }}
     </div>
+    <div class="d-none d-lg-block col-lg-4 blog-sidebar ml-6">
+        Navigation
+        <hr>
+        <div class="card bg-dark">
+            <div class="container mt-4 bg-teritary align-items-center text-center">
+                <img src="{% static 'dist\assets\img\metro\tokyo-metro.png' %}" alt="Map of Japan">
+                <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
+                <hr>
+            </div>
+        </div>
+        <div class="card bg-white mt-4">
+            <div class="">
+            </div>
     </div>
-    <aside class="col-lg-4 d-none d-lg-block">
-    </aside>
+    </div>
 </div>
 </section>
 <section>

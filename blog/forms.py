@@ -24,10 +24,8 @@ class CreatePostForm(forms.ModelForm):
             'thumbnail': FileInput(attrs={'class': 'form-control', 'required': True}),
             'region': Select(attrs={'class': "form-control",}, ),
             'category':  Select(attrs={'class': "form-control",}, ),
-            'related_posts': URLInput(attrs={'class': 'form-control', 'placeholder': "URL of Related Post"}),
+            'related_posts': URLInput(attrs={'class': 'form-control', 'placeholder': "Insert URLS..."}),
         }
 
-    def __init__(self, *args, **kwargs):
-        super(CreatePostForm, self).__init__(*args, **kwargs)
-        self.fields['region'].initial = 'Kanto'
-        self.fields['category'].initial = 'General'
+class EditPostForm(CreatePostForm):
+    thumbnail = forms.ImageField(disabled= True)
