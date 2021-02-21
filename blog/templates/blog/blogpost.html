@@ -1,0 +1,45 @@
+{% extends 'layout/layout.html' %}
+{% load static %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block css %}
+#thumbnail {
+    margin-top: -200px !important;
+}
+{% endblock %}
+
+{% block body %}
+<main>
+<section class="bg-primary section-header text-white align-items-center">
+    <div class="container">
+    <h1 class="display-2">
+        {{ post.title }}
+    </h1>
+    <p class="text d-none d-lg-block"> 
+        {{ post.briefing }}
+    </p>
+    <span class="h6 icon-tertiary small px-2"><i class="fas fa-pencil-ruler mr-2"></i> {{ post.category }}</span>
+    <span class="h6 icon-tertiary small px-2"><i class="fas fa-map mr-2"></i>  {{ post.region }}</span>
+    </div>
+</section>
+<section class="bg-white section text-dark align-items-center">
+<div class="container">
+    <div class="col-lg-8" width=100% id="thumbnail">
+    <img src="{{ post.thumbnail.url }}">
+    <p class="text mt-4">
+    {{ post.content | safe }}
+    </div>
+    </div>
+    <aside class="col-lg-4 d-none d-lg-block">
+    </aside>
+</div>
+</section>
+<section>
+</section>
+
+</main>
+
+{% endblock %}

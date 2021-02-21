@@ -1,0 +1,25 @@
+{% extends 'layout/layout.html' %}
+
+{% block title %}
+Permission Denied
+{% endblock %}
+
+{% block css %}
+main { 
+    margin-top: 200px !important;
+}
+{% endblock %}
+
+{% block body %}
+<main>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col col-lg-8">
+            <i class="fa fa-ban fa-5x px-3 py-2 mb-4" aria-hidden="true"></i>
+            <h1 class="display-2">Permission Denied</h1>
+            <p class="lead">Permission Denied to this page, please head back to the last page or <a href="{% url 'main:index' %}" class="text-bold underlined"> Head back to home.</a></p>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path, include
 
 
@@ -23,8 +25,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(("Gaido.urls", "main"), namespace='main')),
     path('blog/', include(("blog.urls", 'blog'), namespace='blog')),
-    path('user/', include(("user_auth.urls", 'user_auth'), namespace='user_auth')),
+    path('user/', include(("user_auth.urls", 'user_auth'), 
+    namespace='user_auth')),
+    path('docs/', include(("guidemain.urls", 'guidemain'), namespace='guidemain')),
     path('tinymce/', include('tinymce.urls')),
-] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=staticfiles_storage.url("favicon.ico")),
+    ),
+] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 handler404 = 'Gaido.views.page_not_found'

@@ -2,25 +2,142 @@
 {% load static %}
 
 {% block title %}
-Gaido- Blogs
+Blogs
 {% endblock %}
 
 {% block css %}
+@media screen and (min-width: 800px) {
+    #featuredpost {
+        margin-top: -250px !important;
+    }
+}
+
+@media screen and (min-width: 0px) {
+    #featuredpost {
+        margin-top: -300px !important;
+    }
+}
 {% endblock %}
 
 {% block body %}
 <main>
-<div class="container mt-6">
+<div class="bg-dark flex-column py-0">
+<section class="section-header text-white" style="
+    background-image: url('{% static 'dist/assets/img/japan/tokyo-skyview.jpg' %}');
+    background-size: cover;
+
+" height=100%>
+<div class="container">
     <div class="row justify-content-center">
-        <h1 class="text-center mt-6">Blogs</h1>
-    </div>
-    {% if user.is_superuser %}
-        <div class="alert alert-primary mt-2" role="alert">
-            <span class="alert-inner--text">Welcome back. To create a post, <a href="{% url 'blog:create' %}" class="alert-link">go to the editor.</a></span>
+        <div class="col-12 col-md-8 text-center">
+        <h1 class="display-2 mb-4">Traveling in Japan</h1>
+        <p class="lead">Traveling in Japan is extremely difficult without knowledge of the current circumstance. Use our blogs to take a look at life in Japan! <a href="#" class="text-muted">For more info on how the website is structured, click here.</a></p>
         </div>
+    </div>
+    <div class="row justify-content-center align-items-center mt-0 text-center text-danger">
+    {% if user.is_superuser %}
+        <div class="alert alert-danger mt-3" role="alert">
+            <span class="alert-inner--text">Welcome back Admin User- <b>{{request.user}}</b>. To create a post:  
+            <a href="{% url 'blog:create' %}" class="btn btn-danger px-2 py-2 animate-right-3 mb-1 mt-2 mt-lg-0"> go to the editor <span class="fas fa-arrow-right">
+            </a></span>
+        </div>
+    {% elif user.is_authenticated %}
+        <div class="alert alert-info mt-3 px-1" role="alert">
+            <span class="alert-inner--text">You are currently logged in. Welcome back <b>{{ request.user }}.</b></span>
+        </div>
+    {% else %}
     {% endif %}
-    
+    </div>
+    <span class="display-4 mt-6">Latest News</span>
+    <hr>
 </div>
+</section>
+<section class="section section-lg line-bottom-light bg-white" height=100%>
+    <div class="container" id="featuredpost">
+        <div class="row mb-5">
+            {% for features in featured_posts %}
+            <div class="col-12 col-sm-11 col-xl-6 mb-5 mb-lg-0">
+                <div class="card border-light">
+                    {% if features.thumbnail %}
+                    <img src="{{ features.thumbnail.url }}" class="card-img-top rounded-top" alt="image">
+                    {% else %}
+                    <img src="#" class="card-img-top rounded-top" alt="image">
+                    {% endif %}
+                    <div class="card-body">
+                        <span class="h6 icon-tertiary small"><i class="fas fa-medal mr-2"></i>Top Featured</span>
+                        <h5 class="card-title mt-3">{{ features.title }}</h5>
+                        <p class="card-text">{{ features.briefing | safe }}</p>
+                        <a href="{% url 'blog:blogpost' features.uuid %}" class="btn btn-primary btn-sm px-2"> Read More </a>
+                        
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container mt-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 blog-main">
+                <div class="container">
+                    <!-- Header -->
+                    <span class="display-4">
+                    From Gaido 
+                    <hr>
+                    </span>
+
+                    <!-- Main Content BLocks -->
+                    {% for post in posts %}
+                    <div class="row mt-2">
+                        <div class="col-12 mb-5 mb-lg-0">
+                            <div class="card border-light">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-md-4">
+                                    <a href="{% url 'blog:blogpost' post.uuid %}" class="card-img">
+                                    {% if post.thumbnail %}
+                                        <img src="{{ post.thumbnail.url }}" class="card-img rounded-left" alt="image" height=100%>
+                                    {% else %}
+                                        <img src="#" class="card-img rounded-left" alt="image" height=100%>
+                                    {% endif %}
+                                    </a>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a href="{% url 'blog:blogpost' post.uuid %}"><h5 class="card-title">
+                                            {{ post.title }}</h5></a>
+                                            <span class="h6 icon-tertiary small mb-2"><i class="fas fa-pencil-ruler px-2 py-2"></i>{{ post.category }}</span>
+                                            <p class="card-text mb-4">{{ post.briefing }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="card-text small"><i class="far fa-calendar-alt mr-2"></i>  {{ post.time_created }}</span>
+                                                <a href="#" class="small"><i class="far fa-comments mr-2"></i>21</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-4 blog-sidebar">
+                Navigation
+                <hr>
+                <div class="card bg-dark">
+                    <div class="container mt-4 bg-teritary align-items-center text-center">
+                        <img src="{% static 'dist\assets\img\metro\tokyo-metro.png' %}" alt="Map of Japan">
+                        <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
+                        <hr>
+                    </div>
+                </div>
+                <div class="card bg-white mt-4">
+                    <div class="">
+                    </div>
+            </div>
+        </div> 
+    </div>
+</section>
+</div>
+
 
 </main>
 {% endblock %}

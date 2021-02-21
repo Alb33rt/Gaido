@@ -40,7 +40,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
     }
 
     if (d.querySelector('.headroom')) {
-        var headroom = new Headroom(document.querySelector("#navbar-main"), {
+        var headroom = new Headroom(document.querySelector(".navbar"), {
             offset: 0,
             tolerance: {
                 up: 0,

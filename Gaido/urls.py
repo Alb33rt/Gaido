@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('denied', views.perm_denied, name="no_perm"),
 ]
 
 def response_error_handler(request, exception=None):

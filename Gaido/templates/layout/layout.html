@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block navbar %}
-<header class="header-global">
-<nav class="navbar fixed-top navbar-transparent navbar-dark navbar-expand-lg navbar-theme-primary bg-dark .headroom">
+<header class="header-global bg-primary fixed-top">
+<nav class="navbar navbar-transparent navbar-dark navbar-expand-lg navbar-theme-primary" id="navbar-main">
   <div class="container position-relative mt-2 mb-2">
-    <a class="navbar-brand mr-lg-3" href="{% url 'main:index' %}">Gaido</a>
+    <a class="navbar-brand mr-lg-3" href="{% url 'main:index' %}"><img src="{% static 'dist/icon.png' %}" class="mr-6"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,6 +13,7 @@
         <div class="navbar-collapse-header">
             <div class="row">
                 <div class="col-6 collapse-brand">
+                <img src="{% static 'dist/icon.png' %}">
                 <h1 class="mr-3">Gaido</h1>
                 </div>
                 <div class="col-6 collapse-close">
@@ -24,10 +25,10 @@
         </div>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'main:index' %}">Home</a>
+          <a class="nav-link" aria-current="page" href="{% url 'main:index' %}">Introduction</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'blog:index' %}">Blog</a>
+          <a class="nav-link" href="{% url 'blog:index' %}">Guide</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle Categories View">
@@ -101,9 +102,9 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
     {% if request.user.is_authenticated %}
-    <a class="btn px-4 mt-4 mt-lg-0 btn-primary animate-up-2" type="button" href="{% url 'user_auth:logout' %}">Log Out</a>
+    <a class="btn px-4 mt-4 mt-lg-0 btn-success animate-up-2 logbutton" type="button" href="{% url 'user_auth:logout' %}">Log Out</a>
     {% else %}
-    <a class="btn px-4 mt-4 mt-lg-0 btn-primary animate-up-2" type="button" href="{% url 'user_auth:login' %}">Login</a>
+    <a class="btn px-4 mt-4 mt-lg-0 btn-danger animate-up-2 logbutton" type="button" href="{% url 'user_auth:login' %}">Login</a>
     {% endif %}
     </div>
   </div>
@@ -123,7 +124,7 @@
         <div class="col-sm-6 col-md-4 mb-4 mb-sm-0">
             <ul class="list-inline list-group-flush list-group-borderless text-md-center mb-0">
                 <li class="list-inline-item px-0 px-sm-2">
-                    <a class="text-gray" href="{% url 'main:index' %}">Home</a>
+                    <a class="text-gray" href="{% url 'main:index' %}">Start</a>
                 </li>
                 <li class="list-inline-item px-0 px-sm-2">
                     <a class="text-gray" href="#">Support</a>

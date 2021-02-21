@@ -62,11 +62,14 @@ class Type(models.Model):
 
 
 class Blogpost(models.Model):
+    # Fields for the model object
     uuid = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blogposts")
     title = models.CharField(max_length=128)
+    briefing = models.CharField(max_length=512)
     content = tinymce_fields.HTMLField()
-    thumbnail = models.ImageField(upload_to='thumbnails', null=True, blank=True)
+    thumbnail = models.ImageField(upload_to='thumbnails/', null=True, blank=True)
+    featured = models.BooleanField(default=False)
     
     related_posts = models.URLField(max_length=200, null=True, blank=True)
 
@@ -76,3 +79,6 @@ class Blogpost(models.Model):
     ups = models.IntegerField(verbose_name="claps", default=0)
 
     time_created = models.DateTimeField(auto_now_add=True)
+
+    # String represntation in Admins
+    
