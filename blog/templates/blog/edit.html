@@ -17,7 +17,7 @@ Create Post
     <div class="col">
         <div class="mt-4">
             <div class="row">
-                <h1 class="display">Create an Post</h1>
+                <h1 class="display">Edit an Post</h1>
                 <div class="card">
                     <div class="card-body">
                     Guidelines:
@@ -30,12 +30,46 @@ Create Post
             </div>
             <div class="row mt-3">
                 {% comment %} Create Form {% endcomment %}
-                <form action="{% url 'blog:create' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'blog:editpost' uuid=uuid %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.errors }}
                     {{ form.non_field_errors }}
                     {{ form.media }}
-                    {{ form.as_p }}
+                     <div class="row mt-4">
+                         <div class="col-6">
+                             <div class="mt-2">
+                             Title:
+                             {{ form.title }}
+                             </div>
+                             <div class="mt-2">
+                             Category:
+                             {{ form.category }}
+                             </div>
+                             <div class="mt-2">
+                             Region:
+                             {{ form.region }}
+                             </div>
+                         </div>
+                         <div class="col-6">
+                             {{ form.briefing }}
+                         </div>
+                     </div>
+                     <div class="row mt-4">
+                         <div class="col">
+                             {{ form.content }}
+                             <small class="text-muted">You can drag the TinyMCE Editor down for a more extensive writing experience.</small>
+                         </div>
+                     </div>
+                     <div class="row mt-4">
+                         <div class="col-6">
+                             Thumbnail (Disabled)
+                             {{ form.thumbnail }}
+                         </div>
+                         <div class="col-6">
+                             Related Links:
+                             {{ form.related_posts }}
+                         </div>
+                     </div>
         
                     <input type="submit" class="btn btn-primary mt-4" value="Submit">
                 </form>

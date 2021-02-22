@@ -1,6 +1,7 @@
 import uuid as a
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -8,9 +9,11 @@ from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 
 from user_auth.models import User
+from Gaido.forms import SearchBarForm
+from Gaido.utils import get_regions, get_categories
 
-from .forms import CreatePostForm, EditPostForm
-from .models import Blogpost
+from .forms import CreatePostForm, EditPostForm, CommentForm
+from .models import Blogpost, Comment
 # Create your views here.
 def index(request):
     posts = Blogpost.objects.all()
@@ -27,6 +30,9 @@ def index(request):
         'posts': posts,
         'featured_posts': featured_posts,
         'user': request.user,
+        'categories': get_categories,
+        'regions': get_regions,
+        'searchform': SearchBarForm(),
     })
 
 def authorperm(user):
@@ -37,6 +43,8 @@ def authorperm(user):
 
 def createPost(request):
     authorperm(request.user)
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('main:no_perm'))
     if request.method == "POST":
         form = CreatePostForm(request.POST, request.FILES)
         
@@ -54,7 +62,7 @@ def createPost(request):
             f.save()
 
             if f is None:
-                return HttpResponse('error')
+                return render(request, 'misc/500.html')
 
             return HttpResponseRedirect(reverse('blog:index'))
     
@@ -65,20 +73,52 @@ def createPost(request):
         })
         return render(request, 'blog/create.html', {
             'form': form,
+            'categories': get_categories,
+            'regions': get_regions,
+            'searchform': SearchBarForm(),
         })
 
 def blogpost(request, uuid):
     post = Blogpost.objects.filter(uuid=uuid).get()
+    comments = Comment.objects.filter(post=post).all()
+
+    author = post.author
+    authorobject = User.objects.filter(username=author).first()
     return render(request, 'blog/blogpost.html', {
         'post': post,
+        'categories': get_categories,
+        'regions': get_regions,
+        'searchform': SearchBarForm(),
+        'author': authorobject,
+        'commentform': CommentForm(),
+        'comments': comments,
     })
 
 def editpost(request, uuid):
     authorperm(request.user)
 
     if request.method == "POST":
+        if uuid:
+            post = get_object_or_404(Blogpost, uuid=uuid)
+            if request.user != post.author:
+                return render(request, 'misc/perm_denied.html')
+            else: 
+                pass
+        
         # code that updates the blogpost
-        pass
+        form = EditPostForm(request.POST, instance=post)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            briefing = form.cleaned_data.get('briefing')
+            content = form.cleaned_data['content']
+            category = form.cleaned_data['category']
+            region = form.cleaned_data['region']
+
+            form.save(commit=True)
+            return HttpResponseRedirect(reverse('blog:blogpost', args=[uuid]))
+            
+        else:
+            return render(request, 'misc/500.html')
 
     post = Blogpost.objects.filter(uuid=uuid).get()
     form = EditPostForm(initial={
@@ -87,8 +127,34 @@ def editpost(request, uuid):
         'briefing': post.briefing,
         'category': post.category,
         'region': post.region,
+        'related_posts': post.related_posts,
     })
 
     return render(request, 'blog/edit.html', {
         'form': form,
+        'categories': get_categories,
+        'regions': get_regions,
+        'searchform': SearchBarForm(),
+        'uuid': post.uuid,
     })
+
+
+def comment(request, uuid):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            user = request.user
+            post = Blogpost.objects.filter(uuid=uuid).get()
+
+            if (content.strip() == ""):
+                message = "Please do not enter empty in comments."
+                messages.error = (request, message)
+                return HttpResponseRedirect(reverse('blog:blogpost', args=[uuid]))
+            
+            newcomment = Comment(user=user, content=content, post=post)
+            newcomment.save()
+
+            return HttpResponseRedirect(reverse('blog:blogpost', args=[uuid]))
+    else:
+        return render(request, 'misc/500.html')

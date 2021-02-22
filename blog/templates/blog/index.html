@@ -107,8 +107,8 @@ Blogs
                                             <span class="h6 icon-tertiary small mb-2"><i class="fas fa-pencil-ruler px-2 py-2"></i>{{ post.category }}</span>
                                             <p class="card-text mb-4">{{ post.briefing }}</p>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="card-text small"><i class="far fa-calendar-alt mr-2"></i>  {{ post.time_created }}</span>
-                                                <a href="#" class="small"><i class="far fa-comments mr-2"></i>21</a>
+                                                <span class="card-text small"><i class="far fa-calendar-alt mr-2"></i> Posted {{ post.time_created | timesince }} ago</span>
+                                                <a href="{% url 'blog:blogpost' uuid=post.uuid %}" class="small"><i class="far fa-comments mr-2"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -130,9 +130,25 @@ Blogs
                     </div>
                 </div>
                 <div class="card bg-white mt-4">
-                    <div class="">
+                    <div class="container mt-4 bg-white align-items-center text-dark">
+                        <div class="nav-wrapper position-relative">
+                            <ul class="nav nav-pills square nav-fill flex-column vertical-tab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#"><span class="d-block"><i class="far fa-user-circle mr-2"></i> Categories View</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'main:support' %}"><span class="d-block"><i class="far fa-comments mr-2"></i> Apply for Author</span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-            </div>
+                </div>
         </div> 
     </div>
 </section>

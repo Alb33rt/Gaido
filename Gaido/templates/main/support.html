@@ -1,13 +1,110 @@
-{% extends 'layout.layout.html' %}
+{% extends 'layout/layout.html' %}
 
 {% block title %}
 Support
 {% endblock %}
 
+{% block css %}
+{% comment %} #map {
+    margin-top: 200px;
+    height: 400px !important;
+    /* The height is 400 pixels */
+    width: 100% !important;
+    /* The width is the width of the web page */
+}
+
+{% endcomment %} 
+#container {
+    margin-top: 100px !important;
+}
+{% endblock %}
+
+{% block js %}
+{% comment %} <script>
+function initMap() {
+    // The location of Uluru
+    const uluru = { lat: -25.344, lng: 131.036 };
+    // The map, centered at Uluru
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: taichung,
+    });
+    // The marker, positioned at Uluru
+    const marker = new google.maps.Marker({
+        position: taichung,
+        map: map,
+    });
+}
+</script> {% endcomment %}
+{% endblock %}
+
 {% block body %}
 <main>
 <div class="container">
-    <div class="row mt-6 justify-content-center">
+<div id="container" class="row mt-4 mt-lg-6 align-items-center justify-content-between">
+    <div class="col-12 col-lg-4 text-center">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-12"><div class="icon-box mb-5">
+                <div class="icon icon-dark mb-4">
+                <span class="fas fa-map-marker-alt"></span>
+                </div>
+                <h2 class="h5">Visit me</h2><span>Taichung<br>Taiwan, Asia</span>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-12">
+            <div class="icon-box mb-4">
+                <div class="icon icon-dark mb-4">
+                <span class="far fa-paper-plane"></span>
+                </div>
+                <h2 class="h5">Email</h2>
+                <a href="#">albert931023@gmail.com</a><br>
+                <a href="#">91xw24@ms.mingdao.edu.tw</a>
+            </div>
+        </div>
     </div>
 </div>
+<div class="col-12 col-lg-8 mt-4 mt-md-0">
+<div class="card border-gray-300 p-2 p-md-3 p-lg-5">
+    <div class="card-header border-0 bg-white">
+        <h3 class="h4">Want to work with us?</h3>
+        <p>Cool! Let’s talk about your contribution to the project</p>
+    </div>
+    <div class="card-body pt-0">
+        <form action="#">
+            <div class="mb-4">
+                <label for="name">Your Name</label>
+                <div class="input-group">
+                <span class="input-group-text" id="basic-addon3">
+                    <span class="fas fa-user-circle">
+                    </span>
+                </span> 
+                <input type="text" class="form-control" placeholder="e.g. Bonnie Green" id="name" required="">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="email">Your Email</label>
+                <div class="input-group">
+                <span class="input-group-text" id="basic-addon4">
+                    <span class="fas fa-envelope"></span>
+                </span> 
+                <input type="email" class="form-control" placeholder="example@company.com" id="email" required="">
+                </div>
+            </div>
+            </div>
+            <div class="mb-4">
+                <label for="message">Your Message</label> 
+                <textarea placeholder="Your message" class="form-control" id="message" rows="4" required="" spellcheck="false"></textarea>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-secondary">Send message</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+</main>
+{% comment %} <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPxf9nr8G8_MLglEt3qRPhACNjA5tbE5o&callback=initMap">
+</script> {% endcomment %}
 {% endblock %}

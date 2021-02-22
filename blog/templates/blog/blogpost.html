@@ -6,8 +6,14 @@
 {% endblock %}
 
 {% block css %}
-#thumbnail {
+@media screen and (min-width: 800px) {
+    #thumbnail {
     margin-top: -200px !important;
+    }   
+}
+
+#profilepic{
+    border-radius:50% !important;
 }
 {% endblock %}
 
@@ -23,6 +29,12 @@
     </p>
     <span class="h6 icon-tertiary small px-2"><i class="fas fa-pencil-ruler mr-2"></i> {{ post.category }}</span>
     <span class="h6 icon-tertiary small px-2"><i class="fas fa-map mr-2"></i>  {{ post.region }}</span>
+    <p class="text mt-4">
+    by {{ post.author }} <img src="{{ author.photo.url }}" alt="Image of Author" height="50px" id="profilepic">
+    
+    {% if request.user == post.author %}
+    <a href="{% url 'blog:editpost' uuid=post.uuid %}" class="btn btn-danger">Edit Page</a>
+    {% endif %}
     </div>
 </section>
 <section class="bg-white section text-dark align-items-center">
@@ -32,6 +44,14 @@
     <img src="{{ post.thumbnail.url }}">
     <p class="text mt-4">
     {{ post.content | safe }}
+    <hr>
+    Written {{ post.time_created | timesince }} ago
+    </p>
+    <div class="mt-6">
+    <h3 class="display-4">Related Posts</h3>
+    <hr>
+    <a href="{{ post.related_posts }}">{{ post.related_posts }}</a>
+    </div>
     </div>
     <div class="d-none d-lg-block col-lg-4 blog-sidebar ml-6">
         Navigation
@@ -44,13 +64,66 @@
             </div>
         </div>
         <div class="card bg-white mt-4">
-            <div class="">
+            <div class="card bg-white mt-4">
+                    <div class="container mt-4 bg-white align-items-center text-dark">
+                        <div class="nav-wrapper position-relative">
+                            <ul class="nav nav-pills square nav-fill flex-column vertical-tab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#"><span class="d-block"><i class="far fa-user-circle mr-2"></i> Categories View</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'main:support' %}"><span class="d-block"><i class="far fa-comments mr-2"></i> Apply for Author</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
             </div>
-    </div>
+        </div>
     </div>
 </div>
 </section>
-<section>
+<section class="bg-white justify-content-center align-items-center">
+<div class="container">
+    <h3 class="display-3">
+    Comments
+    </h3>
+    <hr>
+    {% if user.is_authenticated %}
+    <form action="{% url 'blog:comment' uuid=post.uuid %}" method="POST">
+        {% csrf_token %}
+        {{ commentform }}
+        <div class="mt-2">
+        <input type="submit" name="submit" value="Post Comment" class="btn btn-danger">
+        </div>
+    </form>
+    {% else %}
+    <a href="{% url 'user_auth:login' %}" class="btn btn-danger">
+    Log In to Comment
+    </a>
+    {% endif %}
+    <div class="row d-none d-lg-block mt-3">
+    <div class="col-8">
+    {% for comment in comments %}
+    <div class="card">
+        <div class="card-body">
+            <div class="col-3">
+            </div>
+            <div class="col-9">
+                <p class="text">{{ comment.content }}</p>
+                <small class="text-muted">{{ comment.time_created | timesince }} ago, by {{ comment.user | safe }}</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+</div>
 </section>
 
 </main>

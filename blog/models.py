@@ -80,5 +80,15 @@ class Blogpost(models.Model):
 
     time_created = models.DateTimeField(auto_now_add=True)
 
+    # Functions
+    def get_author_photo(self, *args):
+        return self.author.photo
+
     # String represntation in Admins
-    
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE, null= True, blank = True)
+    content = models.TextField(max_length=2048)
+    time_created = models.DateTimeField(auto_now_add= True)
+
+    post = models.ForeignKey(Blogpost, on_delete=models.CASCADE, related_name='comments', null=True, blank=True)

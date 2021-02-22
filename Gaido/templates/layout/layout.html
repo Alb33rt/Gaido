@@ -28,11 +28,11 @@
           <a class="nav-link" aria-current="page" href="{% url 'main:index' %}">Introduction</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'blog:index' %}">Guide</a>
+          <a class="nav-link" href="{% url 'blog:index' %}">Main</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle Categories View">
-            Categories
+          <a class="nav-link dropdown-toggle" href="{% url 'guidemain:full' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle Categories View">
+            Detailed Guide
             <i class="fas fa-angle-down nav-link-arrow ml-2"></i>
           </a>
           <ul class="dropdown-menu dropdown-megamenu-md p-0" aria-labelledby="navbarDropdown">
@@ -42,6 +42,7 @@
                       <div class="container px-1 bg-teritary">
                         <img src="{% static 'dist\assets\img\metro\tokyo-metro.png' %}" alt="Map of Japan">
                         <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-3">View the Japanese Metro System</a>
+                        <a href="{% url 'guidemain:full' %}" class="btn btn-danger animate-up-2 mb-2 mb-sm-0 mt-3">Full Documentation</a>
                       </div>
                     </div>
                 </div>
@@ -51,14 +52,9 @@
                     <span class="text px-3 py-2">Regions</span>
                   </div>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Hokkaido</a></li>
-                    <li><a class="dropdown-item" href="#">Kanto</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Nagoya</a></li>
-                    <li><a class="dropdown-item" href="#">Kansai</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Shikouku</a></li>
-                    <li><a class="dropdown-item" href="#">Kyushyu</a></li>
+                    {% for category in categories %}
+                      <li><a class="dropdown-item" href="#">{{ category }}</a></li>
+                    {% endfor %}
                 </div>
                 <div class="col-3 px-1">
                   <div class="container">
@@ -66,45 +62,58 @@
                     <span class="text px-3 py-2">Activities</span>
                   </div>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Anime</a></li>
-                    <li><a class="dropdown-item" href="#">Food</a></li>
-                    <li><a class="dropdown-item" href="#">Entertainment</a></li>
-                    <li><a class="dropdown-item" href="#">Sports</a></li>
-                    <li><a class="dropdown-item" href="#">History</a></li>
-                    <li><a class="dropdown-item" href="#">Business</a></li>
+                    {% for region in regions %}
+                    <li><a class="dropdown-item" href="#">{{ region }}</a></li>
+                    {% endfor %}
                 </div>
             </div>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" tabindex="-1">Support</a>
+          <a class="nav-link" href="{% url 'main:support' %}" tabindex="-1">Support</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Profile
+                    <i class="fas fa-angle-down nav-link-arrow ml-2"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li class="dropdown-item"><a class="text" href="{% url 'user_auth:logout' %}">Logout</a>
+                        </li>
+                    </ul>
+        </li>
+        {% endif %}
       </ul>
-      <ul class="flex-row list-style-none px-3 d-none d-lg-flex">
+      <ul class="flex-row list-style-none px-1 d-none d-lg-flex">
         <li class="px-1">
             <a href="https://www.facebook.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Like us on Facebook">
             <i class="fab fa-facebook text-white"></i>
             </a>
         </li>
         <li class="px-1">
-            <a href="https://twitter.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on Twitter">
+            <a href="https://twitter.com/alb33rt_" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Follow us on Twitter">
             <i class="fab fa-twitter text-white"></i>
             </a>
         </li>
         <li class="px-1">
-            <a href="https://github.com/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Star us on Github">
+            <a href="https://github.com/alb33rt" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Star us on Github">
             <i class="fab fa-github text-white"></i>
             </a>
         </li>
     </ul>
-    <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search in Guide..." aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+    <form class="d-flex" action="{% url 'main:search' %}" method="POST">
+        {% csrf_token %}
+        {{ searchform }}
+        <div class="ml-2">
+          <button class="btn btn-outline-success px-3 ml-3" type="submit">Search</button>
+        </div>
     </form>
     {% if request.user.is_authenticated %}
-    <a class="btn px-4 mt-4 mt-lg-0 btn-success animate-up-2 logbutton" type="button" href="{% url 'user_auth:logout' %}">Log Out</a>
     {% else %}
-    <a class="btn px-4 mt-4 mt-lg-0 btn-danger animate-up-2 logbutton" type="button" href="{% url 'user_auth:login' %}">Login</a>
+    <a class="btn px-4 mt-4 mt-lg-0 btn-danger animate-up-2 logbutton" type="button" href="{% url 'user_auth:login' %}">Log in</a>
     {% endif %}
     </div>
   </div>
@@ -127,7 +136,7 @@
                     <a class="text-gray" href="{% url 'main:index' %}">Start</a>
                 </li>
                 <li class="list-inline-item px-0 px-sm-2">
-                    <a class="text-gray" href="#">Support</a>
+                    <a class="text-gray" href="{% url 'main:support' %}">Support</a>
                 </li>
                 <li class="list-inline-item px-0 px-sm-2">
                     <a class="text-gray" href="{% url 'blog:create' %}">Editor</a>
@@ -137,29 +146,24 @@
         <div class="col-sm-6 col-md-4">
                     <ul class="list-inline text-sm-right mb-0">
                         <li class="list-inline-item">
-                            <a class="icon icon-xs icon-twitter mr-3">
+                            <a class="icon icon-xs icon-twitter mr-3" href="https://www.facebook.com/">
                                 <span class="fab fa-twitter">
                                 </span>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="icon icon-xs icon-facebook mr-3">
+                            <a class="icon icon-xs icon-facebook mr-3" href="https://www.twitter.com/alb33rt">
                                 <span class="fab fa-facebook-f"></span>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="icon icon-xs icon-github mr-3">
+                            <a class="icon icon-xs icon-github mr-3" href="https://www.github.com/alb33rt">
                             <span class="fab fa-github">
                             </span>
                             </a>
                         </li>
-                        <li class="list-inline-item">
-                            <a class="icon icon-xs icon-dribbble mr-3">
-                                <span class="fab fa-dribbble"></span>
-                            </a>
-                        </li>
                     </ul>
-            </div>
+            
         </div>
     </div>
 </footer>

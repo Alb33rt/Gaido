@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput, SelectMultiple, Textarea, Select, URLInput, FileInput
 from tinymce.widgets import TinyMCE
 
-from .models import Blogpost
+from .models import Blogpost, Comment
 
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
@@ -29,3 +29,14 @@ class CreatePostForm(forms.ModelForm):
 
 class EditPostForm(CreatePostForm):
     thumbnail = forms.ImageField(disabled= True)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'content'
+        ]
+
+        widgets = {
+            'content': TextInput(attrs={'class': 'form-control', 'row': 2})
+        }

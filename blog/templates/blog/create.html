@@ -35,8 +35,45 @@ Create Post
                     {{ form.errors }}
                     {{ form.non_field_errors }}
                     {{ form.media }}
-                    {{ form.as_p }}
-        
+                    <div class="d-block">
+                     <div class="row mt-4">
+                         <div class="col-lg-6">
+                             <div class="mt-2">
+                             Title:
+                             {{ form.title }}
+                             </div>
+                             <div class="mt-2">
+                             Category:
+                             {{ form.category }}
+                             </div>
+                             <div class="mt-2">
+                             Region:
+                             {{ form.region }}
+                             </div>
+                         </div>
+                         <div class="col-lg-6 mt-3">
+                            Briefing / Summary:
+                             {{ form.briefing }}
+                         </div>
+                     </div>
+                     <div class="row mt-4">
+                         <div class="col-lg-12">
+                            <h3 class="display-4">Main Body:</h3>
+                             {{ form.content }}
+                             <small class="text-muted">You can drag the TinyMCE Editor down for a more extensive writing experience.</small>
+                         </div>
+                     </div>
+                     <div class="row mt-4">
+                         <div class="col-lg-6">
+                             Thumbnail for Post:
+                             {{ form.thumbnail }}
+                         </div>
+                         <div class="col-lg-6">
+                             Related Links:
+                             {{ form.related_posts }}
+                         </div>
+                     </div>
+                    </div>
                     <input type="submit" class="btn btn-primary mt-4" value="Submit">
                 </form>
             </div>
