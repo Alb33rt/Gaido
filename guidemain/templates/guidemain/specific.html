@@ -1,0 +1,96 @@
+{% extends 'layout/layout.html' %}
+{% load static %}
+
+{% block title %}
+Gaido Docs
+{% endblock %}
+
+{% block css %}
+#headersec {
+    padding-bottom:400px !important;
+}
+
+#header {
+    margin-top: 200px;
+}
+
+.wrapingcard {
+    white-space: wrap !important;
+    overflow-wrap: break-word !important;
+}
+
+div.scrollmenu {   
+  margin-top: -150px !important;
+  overflow: auto !important;
+}
+
+.card {
+    max-width: 100% !important;
+}
+.card-text {
+    word-wrap: break-word !important;
+}
+
+.card-container {
+    padding: 2px 16px !important;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+{% endblock %}
+
+{% block body %}
+<section class="section-header text-primary mb-6" style="
+    background-image: url('{% static 'dist/assets/img/japan/cherry1.jpg' %}');
+    background-size: cover;
+" id="headersec">
+    <div class="container text-center" id="header">
+    <div class="card">
+        <div class="card-body">
+        <h1 class='display-3'>Japan</h1>
+        <p class="lead">The Gaido documentation has everything you are going to need to travel sufficiently in Japan</p>
+        </div>
+    </div>
+    </div>
+</section>
+<main>
+<section class="bg-white section section-lg text-dark">
+<div class="container-fluid py-2 scrollmenu">
+    <h2 class="display-2">Sorted by {{ category }}</h3>
+    <hr>
+    <div class="row flex-row flex-nowrap overflow-auto">
+        {% for feature in posts %}
+        <div class="col-6 col-sm-4 col-xl-3 mb-5 mb-lg-0">
+            <div class="card border-light">
+                <img src="{{ feature.thumbnail.url }}" class="card-img-top rounded-top" alt="image of post" max-height: 100%>
+                <div class="card-body">
+                    <div class="card-container">
+                        <div class="media d-flex align-items-center">
+                            <div class="post-group">
+                                <a href="{% url 'blog:blogpost' uuid=feature.uuid %}" data-toggle="tooltip" data-placement="top" title="" data-original-title="23k followers" class="px-2">
+                                    <img class="avatar-sm mr-2 img-fluid rounded-circle" src="{{ feature.get_author_photo.url }}" alt="avatar"> {{ feature.author }}
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="small"><i class="far fa-calendar-alt mr-2"></i> {{ feature.time_created | timesince }} ago</span>
+                            </div>
+                        </div>
+                        <h5 class="card-title mt-4 wrap text-justify">{{ feature.title }}</h5>
+                        <p class="card-text">{{ feature.region }}, Japan</p>
+                        <p class="card-text">{{ feature.category }}</p>
+                        <p class="card-text text-justify wrap">{{ feature.briefing }}</p>
+                        <a href="{% url 'blog:blogpost' uuid=feature.uuid %}" class="btn btn-primary btn-sm">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+</main>
+{% endblock %}

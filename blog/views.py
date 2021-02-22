@@ -1,6 +1,7 @@
 import uuid as a
 
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -18,18 +19,27 @@ from .models import Blogpost, Comment
 def index(request):
     posts = Blogpost.objects.all()
     featured_posts = Blogpost.objects.exclude(featured=False).all()
+    p = Paginator(posts, 7)
+    
+    if request.GET.get('page'):
+        page_number = request.GET.get('page')
+    else:
+        page_number = 1
+
+    page_obj = p.page(page_number)
 
     for features in featured_posts:
+        print(features.category)
         if features.thumbnail:
             imageurl = features.thumbnail.url
         
         else:
             imageurl = False
         print(imageurl)
+
     return render(request, 'blog/index.html', {
-        'posts': posts,
         'featured_posts': featured_posts,
-        'user': request.user,
+        'page_obj': page_obj,
         'categories': get_categories,
         'regions': get_regions,
         'searchform': SearchBarForm(),

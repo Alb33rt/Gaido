@@ -14,26 +14,29 @@ Gaido Docs
     margin-top: 200px;
 }
 
-.wrapingcard {
-    white-space: wrap !important;
-    overflow-wrap: break-word !important;
+@media screen and (min-width: 600px) {
+    div.scrollmenu {   
+    margin-top: -150px !important;
+    overflow: auto !important;
+    }
 }
 
-div.scrollmenu {   
-
-  margin-top: -150px !important;
-  overflow: auto !important;
+@media screen and (min-width: 0px) {
+    div.scrollmenu {   
+    margin-top: -50px !important;
+    overflow: auto !important;
+    }
 }
 
-.card {
-    max-width: 100% !important;
-}
-.card-text {
-    word-wrap: break-word !important;
+.cards {
+   display: flex;
+   justify-content: space-between;
 }
 
-.card-container {
-    padding: 2px 16px !important;
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 
 {% endblock %}
@@ -59,7 +62,7 @@ div.scrollmenu {
     <hr>
     <div class="row flex-row flex-nowrap overflow-auto">
         {% for feature in featured_posts %}
-        <div class="col-6 col-sm-4 col-xl-3 mb-5 mb-lg-0">
+        <div class="col-6 col-sm-5 col-xl-3 mb-5 mb-lg-0">
             <div class="card border-light">
                 <img src="{{ feature.thumbnail.url }}" class="card-img-top rounded-top" alt="image of post" max-height: 100%>
                 <div class="card-body">
@@ -83,6 +86,57 @@ div.scrollmenu {
                 </div>
             </div>
         </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container-fluid">
+    <h2 class='display-4'>Most Useful Posts</h2>
+    <hr>
+    <div class="row flex-row flex-nowrap overflow-auto mt-4">
+        {% for post in bests %}
+        <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-5 mb-lg-0">
+            <div class="card border-light">
+                <img src="{{ post.thumbnail.url }}" class="card-img-top rounded-top" alt="image of post" max-height: 100%>
+                <div class="card-body">
+                    <div class="card-container">
+                        <div class="media d-flex align-items-center">
+                            <div class="post-group">
+                                <a href="{% url 'blog:blogpost' uuid=post.uuid %}" data-toggle="tooltip" data-placement="top" title="" data-original-title="23k followers" class="px-2">
+                                    <img class="avatar-sm mr-2 img-fluid rounded-circle" src="{{ post.get_author_photo.url }}" alt="avatar"> {{ post.author }}
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="small"><i class="far fa-calendar-alt mr-2"></i> {{ post.time_created | timesince }} ago</span>
+                            </div>
+                        </div>
+                        <h5 class="card-title mt-4 wrap text-justify">{{ post.title }}</h5>
+                        <p class="card-text"><i class="fas fa-map-marked-alt"></i> - {{ post.region }}, Japan</p>
+                        <p class="card-text"><i class="fas fa-toolbox"></i> - {{ post.category }}</p>
+                        <p class="card-text text-justify wrap"></p>
+                        <a href="{% url 'blog:blogpost' uuid=post.uuid %}" class="btn btn-primary btn-sm">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container-fluid">
+    <h2 class="display-4">Database of Entries</h2>
+    <hr>
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-4 col-sm-4 col-md-3 col-lg-2">
+            <div class="card">
+                <img class="card-img-top" src="{{ post.thumbnail.url }}" alt="Post image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.region }}, Japan</p>
+                    <p class="card-text">{{ post.category }}</p>
+                    <p class="card-text"><small class="text-muted">{{ post.time_created | timesince }} ago</small></p>
+                </div>
+            </div>
+            </div>
         {% endfor %}
     </div>
 </div>

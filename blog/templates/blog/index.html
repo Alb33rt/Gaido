@@ -17,6 +17,12 @@ Blogs
         margin-top: -300px !important;
     }
 }
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
 {% endblock %}
 
 {% block body %}
@@ -35,13 +41,13 @@ Blogs
         </div>
     </div>
     <div class="row justify-content-center align-items-center mt-0 text-center text-danger">
-    {% if user.is_superuser %}
+    {% if request.user.is_superuser %}
         <div class="alert alert-danger mt-3" role="alert">
             <span class="alert-inner--text">Welcome back Admin User- <b>{{request.user}}</b>. To create a post:  
             <a href="{% url 'blog:create' %}" class="btn btn-danger px-2 py-2 animate-right-3 mb-1 mt-2 mt-lg-0"> go to the editor <span class="fas fa-arrow-right">
             </a></span>
         </div>
-    {% elif user.is_authenticated %}
+    {% elif request.user.is_authenticated %}
         <div class="alert alert-info mt-3 px-1" role="alert">
             <span class="alert-inner--text">You are currently logged in. Welcome back <b>{{ request.user }}.</b></span>
         </div>
@@ -86,7 +92,7 @@ Blogs
                     </span>
 
                     <!-- Main Content BLocks -->
-                    {% for post in posts %}
+                    {% for post in page_obj %}
                     <div class="row mt-2">
                         <div class="col-12 mb-5 mb-lg-0">
                             <div class="card border-light">
@@ -94,7 +100,7 @@ Blogs
                                     <div class="col-md-4">
                                     <a href="{% url 'blog:blogpost' post.uuid %}" class="card-img">
                                     {% if post.thumbnail %}
-                                        <img src="{{ post.thumbnail.url }}" class="card-img rounded-left" alt="image" height=100%>
+                                        <img src="{{ post.thumbnail.url }}" class="card-img card-img-top rounded-left" alt="image" height=100%>
                                     {% else %}
                                         <img src="#" class="card-img rounded-left" alt="image" height=100%>
                                     {% endif %}
@@ -117,6 +123,29 @@ Blogs
                         </div>
                     </div>
                     {% endfor %}
+                    <nav aria-label="Page Navigation">
+                        <ul class="pagination mt-3">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1"><i class="fas fa-angle-double-left"></i></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                            {% endif %}
+                            <li class="page-item active">
+                                <a class="page-link" href="#">{{ page_obj.number }}</a>
+                            </li>
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-angle-double-right"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <div class="d-none d-lg-block col-lg-4 blog-sidebar">

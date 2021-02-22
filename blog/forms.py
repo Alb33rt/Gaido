@@ -24,7 +24,7 @@ class CreatePostForm(forms.ModelForm):
             'thumbnail': FileInput(attrs={'class': 'form-control', 'required': True}),
             'region': Select(attrs={'class': "form-control",}, ),
             'category':  Select(attrs={'class': "form-control",}, ),
-            'related_posts': URLInput(attrs={'class': 'form-control', 'placeholder': "Insert URLS..."}),
+            'related_posts': Select(attrs={'class': 'form-control', 'placeholder': "Insert Post..."}),
         }
 
 class EditPostForm(CreatePostForm):

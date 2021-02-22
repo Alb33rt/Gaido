@@ -59,9 +59,9 @@ Search Results
                     Related Posts by Title and Summary
                     <hr>
                     </span>
-                    {% if primaryresults %}
+                    {% if all_page_obj %}
                     <!-- Main Content BLocks -->
-                    {% for post in primaryresults %}
+                    {% for post in all_page_obj %}
                     <div class="row mt-2">
                         <div class="col-12 mb-5 mb-lg-0">
                             <div class="card border-light">
@@ -79,7 +79,7 @@ Search Results
                                             <p class="card-text mb-4">{{ post.briefing }}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="card-text small"><i class="far fa-calendar-alt mr-2"></i>  {{ post.time_created }}</span>
-                                                <a href="#" class="small"><i class="far fa-comments mr-2"></i>21</a>
+                                                <a href="#" class="small"><i class="far fa-comments mr-2"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -99,9 +99,9 @@ Search Results
                     <hr>
                     </span>
 
-                    {% if secondaryresults %}
+                    {% if body_page_obj %}
                     <!-- Main Content BLocks -->
-                    {% for post in secondaryresults %}
+                    {% for post in body_page_obj %}
                     <div class="row" id="">
                         <div class="col-12 mb-5 mb-lg-0">
                             <div class="card border-light">
@@ -131,7 +131,29 @@ Search Results
                     {% else %}
                     <p class="text"> No Results </p>
                     {% endif %}
-
+                    <nav aria-label="Page Navigation">
+                        <ul class="pagination mt-3">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&search={{query}}"><i class="fas fa-angle-double-left"></i></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{query}}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                            {% endif %}
+                            <li class="page-item active">
+                                <a class="page-link" href="#">{{ page_obj.number }}</a>
+                            </li>
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{query}}">{{ page_obj.next_page_number }}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&search={{query}}"><i class="fas fa-angle-double-right"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <div class="d-none d-lg-block col-lg-4 blog-sidebar">

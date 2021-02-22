@@ -70,8 +70,9 @@ class Blogpost(models.Model):
     content = tinymce_fields.HTMLField()
     thumbnail = models.ImageField(upload_to='thumbnails/', null=True, blank=True)
     featured = models.BooleanField(default=False)
+    must_view = models.BooleanField(default=False)
     
-    related_posts = models.URLField(max_length=200, null=True, blank=True)
+    related_posts = models.ManyToManyField('self' , blank=True)
 
     region = models.ForeignKey(Region, related_name="blogposts", on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Type, related_name="blogposts", on_delete=models.SET_NULL, null=True)
@@ -80,11 +81,21 @@ class Blogpost(models.Model):
 
     time_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-time_created']
+
     # Functions
     def get_author_photo(self, *args):
         return self.author.photo
 
-    # String represntation in Admins
+    # String represntation in Editor
+    def __str__(self):
+        name = f"{self.title} by {self.author}"
+        return name
+
+    def get_related_post(self):
+        title_of_post = f"{self.related_posts.title}"
+        return title_of_post
 
 class Comment(models.Model):
     user = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE, null= True, blank = True)

@@ -53,7 +53,7 @@
                   </div>
                     <li><hr class="dropdown-divider"></li>
                     {% for category in categories %}
-                      <li><a class="dropdown-item" href="#">{{ category }}</a></li>
+                      <li><a class="dropdown-item" href="{% url 'guidemain:specific' %}?sortby={{category}}">{{ category }}</a></li>
                     {% endfor %}
                 </div>
                 <div class="col-3 px-1">
@@ -63,7 +63,7 @@
                   </div>
                     <li><hr class="dropdown-divider"></li>
                     {% for region in regions %}
-                    <li><a class="dropdown-item" href="#">{{ region }}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'guidemain:specific' %}?sortby={{region}}">{{ region }}</a></li>
                     {% endfor %}
                 </div>
             </div>
@@ -73,17 +73,20 @@
           <a class="nav-link" href="{% url 'main:support' %}" tabindex="-1">Support</a>
         </li>
         {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle btn btn-info" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Profile
+        <li class="nav-item dropdown d-none d-lg-block">
+                    <a class="nav-link dropdown-toggle btn btn-info " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Account
                     <i class="fas fa-angle-down nav-link-arrow ml-2"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile (Working- Progess)</a></li>
+                        <li><a class="dropdown-item" href="#">Settings (Working-Progress</a></li>
                         <li class="dropdown-item"><a class="text" href="{% url 'user_auth:logout' %}">Logout</a>
                         </li>
                     </ul>
+        </li>
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link" href="{% url 'user_auth:logout' %}" tabindex="-1">Logout</a>
         </li>
         {% endif %}
       </ul>
@@ -104,7 +107,7 @@
             </a>
         </li>
     </ul>
-    <form class="d-flex" action="{% url 'main:search' %}" method="POST">
+    <form class="d-flex" action="{% url 'main:search' %}" method="GET">
         {% csrf_token %}
         {{ searchform }}
         <div class="ml-2">
@@ -144,26 +147,25 @@
             </ul>
         </div>
         <div class="col-sm-6 col-md-4">
-                    <ul class="list-inline text-sm-right mb-0">
-                        <li class="list-inline-item">
-                            <a class="icon icon-xs icon-twitter mr-3" href="https://www.facebook.com/">
-                                <span class="fab fa-twitter">
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="icon icon-xs icon-facebook mr-3" href="https://www.twitter.com/alb33rt">
-                                <span class="fab fa-facebook-f"></span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="icon icon-xs icon-github mr-3" href="https://www.github.com/alb33rt">
-                            <span class="fab fa-github">
+                <ul class="list-inline text-sm-right mb-0">
+                    <li class="list-inline-item">
+                        <a class="icon icon-xs icon-twitter mr-3" href="https://www.twitter.com/alb33rt">
+                            <span class="fab fa-twitter">
                             </span>
-                            </a>
-                        </li>
-                    </ul>
-            
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="icon icon-xs icon-facebook mr-3" href="https://www.facebook.com/">
+                            <span class="fab fa-facebook-f"></span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="icon icon-xs icon-github mr-3" href="https://www.github.com/alb33rt">
+                        <span class="fab fa-github">
+                        </span>
+                        </a>
+                    </li>
+                </ul>
         </div>
     </div>
 </footer>

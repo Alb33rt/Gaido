@@ -3,6 +3,7 @@ import html2text
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from blog.models import Blogpost, Type, Region
 from user_auth.models import User
@@ -45,31 +46,49 @@ def server_error(request):
 
 
 def search(request):
-    if request.method == "POST":
-        form = SearchBarForm(request.POST)
-        if form.is_valid():
-            # Context
-            query = request.POST['search']
-            query = query.strip().lower()
-            body_posts = []
-            
-            # Search body algo 
-            allposts = Blogpost.objects.all()
-            for post in allposts:
-                content_in_string = html2text.html2text(post.content)
-                if query in content_in_string:
-                    body_posts.append(post)
-                else: 
-                    pass
-                
-            posts = Blogpost.objects.filter(title__icontains=query, briefing__icontains=query).all()
+    # Context
+    query = request.GET.get('search')
+    query = query.strip().lower()
+    body_posts = []
+    
+    # Search body algo 
+    allposts = Blogpost.objects.all()
+    for post in allposts:
+        content_in_string = html2text.html2text(post.content)
+        if query in content_in_string:
+            body_posts.append(post)
+        else: 
+            pass
 
-            return render(request, 'main/searchresults.html', {
-                'primaryresults': posts,
-                'secondaryresults': body_posts,
-                'categories': get_categories,
-                'regions': get_regions,
-                'searchform': SearchBarForm
-            })
+        
+    posts = Blogpost.objects.filter(title__icontains=query, briefing__icontains=query).all()
+
+    p = Paginator(posts, 1)
+    p2 = Paginator(body_posts, 1)
+
+    if request.GET.get('page'):
+        page_number = request.GET.get('page')
     else:
-        return render(request, 'misc/404.html')
+        page_number = 1
+    
+    all_page_obj = p.page(page_number)
+    body_page_obj = p2.page(page_number)
+
+    if len(body_page_obj) > len(all_page_obj):
+        page_obj = body_page_obj
+    else:
+        page_obj = all_page_obj
+
+    print(len(all_page_obj))
+    print(len(body_page_obj))
+
+    return render(request, 'main/searchresults.html', {
+        'all_page_obj': all_page_obj,
+        'body_page_obj': body_page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'categories': get_categories,
+        'regions': get_regions,
+        'searchform': SearchBarForm
+    })
+

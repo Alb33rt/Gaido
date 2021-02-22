@@ -15,12 +15,34 @@
 #profilepic{
     border-radius:50% !important;
 }
+
+#aheader {
+    margin-top:-420px;
+    margin-bottom: 100px;
+}
+
+.section-header {
+    background-image: url('{{ post.thumbnail.url }}') !important;
+    background-size: cover;
+    filter: brightness(50%);
+    -webkit-filter: brightness(50%);
+
+    height: 500px;
+
+}
+
+
 {% endblock %}
 
 {% block body %}
 <main>
-<section class="bg-primary section-header text-white align-items-center">
-    <div class="container">
+<section class="section-header text-white align-items-center">
+</section>
+<section class="section text-white align-items-center" id="aheader">
+    <div class="container" style="
+    filter: brightness(100%);
+    -webkit-filter: brightness(100%);
+">
     <h1 class="display-2">
         {{ post.title }}
     </h1>
@@ -50,7 +72,7 @@
     <div class="mt-6">
     <h3 class="display-4">Related Posts</h3>
     <hr>
-    <a href="{{ post.related_posts }}">{{ post.related_posts }}</a>
+    <a href="{{ post.related_posts }}">{{ post.get_related_posts }}</a>
     </div>
     </div>
     <div class="d-none d-lg-block col-lg-4 blog-sidebar ml-6">
@@ -64,25 +86,23 @@
             </div>
         </div>
         <div class="card bg-white mt-4">
-            <div class="card bg-white mt-4">
-                    <div class="container mt-4 bg-white align-items-center text-dark">
-                        <div class="nav-wrapper position-relative">
-                            <ul class="nav nav-pills square nav-fill flex-column vertical-tab">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#"><span class="d-block"><i class="far fa-user-circle mr-2"></i> Categories View</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="{% url 'main:support' %}"><span class="d-block"><i class="far fa-comments mr-2"></i> Apply for Author</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="container mt-4 bg-white align-items-center text-dark">
+                <div class="nav-wrapper position-relative">
+                    <ul class="nav nav-pills square nav-fill flex-column vertical-tab">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#"><span class="d-block"><i class="far fa-user-circle mr-2"></i> Categories View</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="{% url 'main:support' %}"><span class="d-block"><i class="far fa-comments mr-2"></i> Apply for Author</span></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
