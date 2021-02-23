@@ -34,9 +34,10 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'i*e3dw2tefl)-)^+dqah)(^6nwii!tm3aj3jaa5bcx4hrtm=u%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 
+'https://gaido-app.herokuapp.com']
 
 
 # Application definition
