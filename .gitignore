@@ -1,6 +1,9 @@
 # Mac
 .DS_Store
 
+# Ui-Kit
+pixel-lite-ui/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -64,7 +67,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 db.maindatabase
-db_maindatabase-journal
+db_maindatabase-journal 
 
 # Flask stuff:
 instance/
