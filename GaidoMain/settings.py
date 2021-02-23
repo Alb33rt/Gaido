@@ -34,7 +34,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['gaido-app.herokuapp.com']
 
@@ -91,14 +91,10 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-
-        'NAME': BASE_DIR / 'db_sqlite3',
-
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': BASE_DIR / 'db_postgresql',
         'USER': 'db_admin',
-
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
-
     }
 }
 
