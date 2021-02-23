@@ -27,17 +27,14 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # Uncomment this for the production model.
-# Also change the path of the file opened, the SECRET_KEY is stored there on the main dev environment
-# with open('../../secret_key.txt') as f:
-#   SECRET_KEY = f.read().strip()
+# Also change the path of the file opened, the SECRET_KEY is stored in the environment variables
 
-SECRET_KEY = 'i*e3dw2tefl)-)^+dqah)(^6nwii!tm3aj3jaa5bcx4hrtm=u%'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 
-'https://gaido-app.herokuapp.com']
+ALLOWED_HOSTS = ['gaido-app.herokuapp.com']
 
 
 # Application definition
