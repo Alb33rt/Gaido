@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_on_heroku
 
 from pathlib import Path
 
@@ -158,3 +159,5 @@ TINYMCE_DEFAULT_CONFIG = {
             advlist link image lists
             ''',
 }
+
+django_on_heroku.settings(locals())
