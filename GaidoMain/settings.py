@@ -34,9 +34,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = (os.environ.get('DEBUG_VALUE'))
 
-ALLOWED_HOSTS = ['gaido-app.herokuapp.com']
+ALLOWED_HOSTS = ['gaido-app.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -91,8 +91,8 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': BASE_DIR / 'db_postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_maindatabase',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
     }
@@ -158,5 +158,5 @@ TINYMCE_DEFAULT_CONFIG = {
 
 django_on_heroku.settings(locals())
 
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
