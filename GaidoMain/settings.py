@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db_maindatabase',
+        'NAME': 'db_maindatabase',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
     }
