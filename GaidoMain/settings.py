@@ -163,7 +163,7 @@ TINYMCE_DEFAULT_CONFIG = {
             ''',
 }
 
-# django_on_heroku.settings(locals())
+django_on_heroku.settings(locals())
 
-# DATABASE_URL = os.environ.get('DATABASE_URL')
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
