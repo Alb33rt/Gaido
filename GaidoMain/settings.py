@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 import psycopg2
-import django_on_heroku
+import django_heroku
 import dj_database_url
 
 from pathlib import Path
@@ -36,7 +36,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE'))
 
-ALLOWED_HOSTS = ['gaido-app.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -149,7 +149,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/' 
+MEDIA_URL = STATIC_HOST + '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # TINYMCE Editor 
@@ -164,7 +164,10 @@ TINYMCE_DEFAULT_CONFIG = {
             ''',
 }
 
-django_on_heroku.settings(locals())
+# Comment out when using non-heroku applications
 
+DATABASES = {}
 DATABASE_URL = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+django_heroku.settings(locals())
