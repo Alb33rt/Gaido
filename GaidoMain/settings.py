@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import psycopg2
 import django_on_heroku
+import dj_database_url
 
 from pathlib import Path
 
@@ -159,3 +161,4 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 django_on_heroku.settings(locals())
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
