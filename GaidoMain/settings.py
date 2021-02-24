@@ -93,7 +93,6 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db_maindatabase',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',

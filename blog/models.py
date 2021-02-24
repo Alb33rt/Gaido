@@ -72,7 +72,7 @@ class Blogpost(models.Model):
     featured = models.BooleanField(default=False)
     must_view = models.BooleanField(default=False)
     
-    related_posts = models.ManyToManyField('self' , blank=True, null=True)
+    related_posts = models.ManyToManyField('self' , blank=True)
 
     region = models.ForeignKey(Region, related_name="blogposts", on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Type, related_name="blogposts", on_delete=models.SET_NULL, null=True)
