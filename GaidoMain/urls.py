@@ -37,3 +37,4 @@ urlpatterns = [
 
 
 handler404 = 'Gaido.views.page_not_found'
+handler500 = 'Gaido.views.server_error'

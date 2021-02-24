@@ -31,7 +31,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # Uncomment this for the production model.
 # Also change the path of the file opened, the SECRET_KEY is stored in the environment variables
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -93,7 +93,8 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_maindatabase',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db_postgresql',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
     }
@@ -121,6 +122,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -139,8 +142,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/staticfiles/'
+
+STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
@@ -149,7 +152,7 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = STATIC_HOST + '/media/' 
+MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # TINYMCE Editor 
