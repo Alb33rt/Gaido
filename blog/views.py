@@ -130,22 +130,34 @@ def editpost(request, uuid):
         else:
             return render(request, 'misc/500.html')
 
+    
     post = Blogpost.objects.filter(uuid=uuid).get()
-    form = EditPostForm(initial={
-        'title': post.title,
-        'content': post.content,
-        'briefing': post.briefing,
-        'category': post.category,
-        'region': post.region,
-        'related_posts': post.related_posts,
-    })
+    if post.related_posts:
+        form = CreatePostForm(initial={
+            'title': post.title,
+            'content': post.content,
+            'briefing': post.briefing,
+            'category': post.category,
+            'region': post.region,
+            'related_posts': post.related_posts,
+        })
+    else:
+        form = CreatePostForm(initial={
+            'title': post.title,
+            'content': post.content,
+            'briefing': post.briefing,
+            'category': post.category,
+            'region': post.region,
+        })
+
+    print(uuid)
 
     return render(request, 'blog/edit.html', {
         'form': form,
         'categories': get_categories,
         'regions': get_regions,
         'searchform': SearchBarForm(),
-        'uuid': post.uuid,
+        'uuid': post.uuid
     })
 
 

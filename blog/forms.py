@@ -11,12 +11,14 @@ class TinyMCEWidget(TinyMCE):
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Blogpost
-        fields = ['title', 'briefing', 'content', 'thumbnail', 'region', 'category', 'related_posts']
+        # fields = ['title', 'briefing', 'content', 'thumbnail', 'region', 'category', 'related_posts']
+        fields = ['title', 'briefing', 'content', 'thumbnail', 'region', 'category']
 
         labels= {
             'title': ('Title of Post'),
             'related_posts': ('Links to other posts'),
         }
+        
         
         widgets = {
             'title': TextInput(attrs={'class': "form-control", 'size': 40, 'placeholder': "Enter the Title..."}),
