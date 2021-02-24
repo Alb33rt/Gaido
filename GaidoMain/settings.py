@@ -34,7 +34,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
@@ -92,8 +92,8 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db_postgresql',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
@@ -138,6 +138,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SECURE_SLL_REDIRECT = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -169,8 +170,8 @@ TINYMCE_DEFAULT_CONFIG = {
 
 # Comment out when using non-heroku applications
 
-DATABASES = {}
-DATABASE_URL = os.environ.get('DATABASE_URL')
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES = {}
+# DATABASE_URL = os.environ.get('DATABASE_URL')
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
