@@ -34,7 +34,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
@@ -84,6 +84,22 @@ TEMPLATES = [
     },
 ]
 
+LOGGING = {                                                                                                                 
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'logfile': {
+            'class': 'logging.FileHandler',
+            'filename': 'server.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['logfile'],
+        },
+    },
+}
+
 WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 
 
@@ -92,8 +108,8 @@ WSGI_APPLICATION = 'GaidoMain.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db_postgresql',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
@@ -151,7 +167,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'GaidoMain.storage.WhiteNoiseStaticFilesStorage'
 
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -170,8 +186,8 @@ TINYMCE_DEFAULT_CONFIG = {
 
 # Comment out when using non-heroku applications
 
-# DATABASES = {}
-# DATABASE_URL = os.environ.get('DATABASE_URL')
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES = {}
+DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
