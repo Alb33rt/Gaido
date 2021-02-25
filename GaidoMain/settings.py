@@ -36,7 +36,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', 'gaidojapan.info']
 
 # AWS Serving S3 Settings
 AWS_QUERYSTRING_AUTH = False
