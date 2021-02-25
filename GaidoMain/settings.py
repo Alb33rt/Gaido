@@ -38,6 +38,18 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
+# AWS Serving S3 Settings
+AWS_QUERYSTRING_AUTH = False
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-east-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
 
 # Application definition
 
@@ -53,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -110,7 +123,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db_postgresql',
+        'NAME': 'db_maindatabase',
         'USER': 'db_admin',
         'PASSWORD': 'admin_@tFsTCz\vh5Bu~',
     }
@@ -138,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = True
 
 # Internationalization
@@ -170,7 +183,7 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'GaidoMain.storage.WhiteNoiseStaticFilesStorage'
 
 MEDIA_URL = '/media/' 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # TINYMCE Editor 
 
@@ -185,7 +198,7 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 # Comment out when using non-heroku applications
-
+ 
 DATABASES = {}
 DATABASE_URL = os.environ.get('DATABASE_URL')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
