@@ -40,7 +40,6 @@ def specficview(request):
     else:
         return render(request, 'misc/404.html')
         
-    print(posts)
     return render(request, 'guidemain/specific.html', {
         'searchform': SearchBarForm(),
         'categories': get_categories,

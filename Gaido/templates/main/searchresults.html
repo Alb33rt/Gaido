@@ -162,13 +162,31 @@ Search Results
                 <div class="card bg-dark">
                     <div class="container mt-4 bg-teritary align-items-center text-center">
                         <img src="{% static 'dist/assets/img/metro/tokyo-metro.png' %}" alt="Map of Japan">
-                        <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
+                        <a href="{% url 'main:search' %}?search=metro" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
                         <hr>
                     </div>
                 </div>
                 <div class="card bg-white mt-4">
-                    <div class="">
+                    <div class="card bg-white mt-4">
+                    <div class="container mt-4 bg-white align-items-center text-dark">
+                        <div class="nav-wrapper position-relative">
+                            <ul class="nav nav-pills square nav-fill flex-column vertical-tab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:specific' %}?sortby=General"><span class="d-block"><i class="far fa-user-circle mr-3"></i>  General</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="{% url 'main:support' %}"><span class="d-block"><i class="far fa-comments mr-2"></i> Apply for Author</span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
             </div>
         </div> 
     </div>

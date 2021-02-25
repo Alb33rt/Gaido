@@ -41,7 +41,7 @@
                     <div class="px-3 py-3 text-center bg-teritary">
                       <div class="container px-1 bg-teritary">
                         <img src="{% static 'dist/assets/img/metro/tokyo-metro.png' %}" alt="Map of Japan">
-                        <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-3">View the Japanese Metro System</a>
+                        <a href="{% url 'main:search' %}?search=metro" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-3">View the Japanese Metro System</a>
                         <a href="{% url 'guidemain:full' %}" class="btn btn-danger animate-up-2 mb-2 mb-sm-0 mt-3">Full Documentation</a>
                       </div>
                     </div>

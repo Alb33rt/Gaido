@@ -79,9 +79,6 @@ def search(request):
     else:
         page_obj = all_page_obj
 
-    print(len(all_page_obj))
-    print(len(body_page_obj))
-
     return render(request, 'main/searchresults.html', {
         'all_page_obj': all_page_obj,
         'body_page_obj': body_page_obj,

@@ -81,7 +81,7 @@
         <div class="card bg-dark">
             <div class="container mt-4 bg-teritary align-items-center text-center">
                 <img src="{% static 'dist/assets/img/metro/tokyo-metro.png' %}" alt="Map of Japan">
-                <a href="#" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
+                <a href="{% url 'main:search' %}?search=metro" class="btn btn-outline-white animate-up-2 mb-2 mb-sm-0 mt-2">View the Japanese Metro System</a>
                 <hr>
             </div>
         </div>
@@ -93,7 +93,7 @@
                             <a class="nav-link active" data-toggle="tab" href="#"><span class="d-block"><i class="fas fa-dungeon mr-2"></i> Home</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#"><span class="d-block"><i class="far fa-user-circle mr-2"></i> Categories View</span></a>
+                            <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:specific' %}?sortby=General"><span class="d-block"><i class="far fa-user-circle mr-2"></i> General</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="{% url 'guidemain:full' %}"><span class="d-block"><i class="far fa-sun mr-2"></i> Documentation</span></a>

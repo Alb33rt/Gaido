@@ -29,13 +29,11 @@ def index(request):
     page_obj = p.page(page_number)
 
     for features in featured_posts:
-        print(features.category)
         if features.thumbnail:
             imageurl = features.thumbnail.url
         
         else:
             imageurl = False
-        print(imageurl)
 
     return render(request, 'blog/index.html', {
         'featured_posts': featured_posts,
@@ -150,7 +148,6 @@ def editpost(request, uuid):
             'region': post.region,
         })
 
-    print(uuid)
 
     return render(request, 'blog/edit.html', {
         'form': form,
