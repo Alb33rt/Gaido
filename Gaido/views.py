@@ -63,8 +63,8 @@ def search(request):
         
     posts = Blogpost.objects.filter(title__icontains=query, briefing__icontains=query).all()
 
-    p = Paginator(posts, 1)
-    p2 = Paginator(body_posts, 1)
+    p = Paginator(posts, 10)
+    p2 = Paginator(body_posts, 10)
 
     if request.GET.get('page'):
         page_number = request.GET.get('page')

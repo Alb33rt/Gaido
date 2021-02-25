@@ -19,7 +19,7 @@ from .models import Blogpost, Comment
 def index(request):
     posts = Blogpost.objects.all()
     featured_posts = Blogpost.objects.exclude(featured=False).all()
-    p = Paginator(posts, 7)
+    p = Paginator(posts, 10)
     
     if request.GET.get('page'):
         page_number = request.GET.get('page')
