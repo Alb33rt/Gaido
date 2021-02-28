@@ -44,10 +44,10 @@ def index(request):
     })
 
 def authorperm(user):
-    if not user.has_perm('blog:add_blogpost'):
-        return HttpResponseRedirect(reverse('main:no_perm'))
-    else:
+    if user.has_perm('blog:add_blogpost'):
         pass
+    else:
+        return HttpResponseRedirect(reverse('main:no_perm'))
 
 def createPost(request):
     authorperm(request.user)
