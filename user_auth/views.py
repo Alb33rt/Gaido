@@ -18,12 +18,15 @@ def loginview(request):
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('main:index'))
+
         else:
             # Use the Django messages framework to provide message for failed
             message = "Login Failed. You may have entered incorrect username or password."
             messages.error(request, message)
             return HttpResponseRedirect(reverse('user_auth:login'))
     
+    if request.method == "GET":
+        messages.error(request, None)
     return render(request, 'login.html')
 
 def signupview(request):
@@ -50,18 +53,30 @@ def signupview(request):
             message = "You did not agree to the terms and services."
             messages.error(request, message)
             return HttpResponseRedirect(reverse('user_auth:signup'))
+
+        if len(password) < 8:
+            message = "The password must be atleast 8 letters long."
+            messages.error(request, message)
+            return HttpResponseRedirect(reverse('user_auth:signup'))
+
+        if password.lower() == password:
+            message = "The password must include atleast a capital letter"
+            messages.error(request, message)
+            return HttpResponseRedirect(reverse('user_auth:signup'))
         
         
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            message = "This message has been used before."
+            message = "This user has been used before."
             messages.error(request, message)
             return HttpResponseRedirect(reverse('user_auth:signup'))
     
         login(request, user)
         return HttpResponseRedirect(reverse('main:index'))
+    if request.method == "GET":
+        messages.error(request, None)
     return render(request, 'sign-up.html')
 
 @login_required(redirect_field_name='user_auth:login')

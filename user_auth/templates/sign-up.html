@@ -35,7 +35,11 @@ Sign Up
                             </div>
                             {% if messages %}
                             <div class="alert alert-danger">
-                            {{ message }}
+                                {% for message in messages %}
+                                <p class="text">
+                                {{ message }}
+                                </p>
+                                {% endfor %}
                             </div>
                             {% endif %}
                             <form action="{% url 'user_auth:signup' %}" method="POST">
